@@ -1,0 +1,94 @@
+//
+//  ResourceManager.h
+//  OGLGame
+//
+//  Created by Michael Daley on 16/05/2009.
+//  Copyright 2009 Michael Daley. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GameObject.h"
+#import "Texture2D.h"
+#import "Common.h"
+
+
+@interface TextureHolder : NSObject
+{
+	//No texture flip
+	Quad2f noFlip;
+	//Horizontal Flip
+	Quad2f hFlip;
+	//Vertical Flip
+	Quad2f vFlip;
+	//That's right! Horizontal and Vertical Flip
+	Quad2f hvFlip;
+	//This holds the size of the parent texture it's contained in. 
+	//Useful for calculating texture coordinates that 
+	//are only a part of the whole texture
+	CGSize parentSize;
+	//Where does the object start 
+	CGRect frame;
+	//What is it's size
+	CGSize size;
+	CGRect colorRect;
+	
+	
+}
+@property (nonatomic) CGRect colorRect;
+@property (nonatomic) Quad2f noFlip;
+@property (nonatomic) Quad2f hFlip;
+@property (nonatomic) Quad2f vFlip;
+@property (nonatomic) Quad2f hvFlip;
+@property (nonatomic) CGSize parentSize;
+@property (nonatomic) CGSize size;
+@property (nonatomic) CGRect frame;
+-(Quad2f) quadForImage:(id) imageObject;
+-(Quad2f) normalQuad;
+
+
+@end
+
+@class Texture2D;
+@class GameObjectManager;
+
+// Class that is responsible for texture resources witihn the game.  This class should be
+// used to load any texture.  The class will check to see if an instance of that Texture
+// already exists and will return a reference to it if it does.  If not instance already
+// exists then it will create a new instance and pass a reference back to this new instance.
+// The filename of the texture is used as the key within this class.
+@class RenderManager;
+@interface ResourceManager : NSObject {
+	
+	GameObjectManager *_sharedGameManager;
+	RenderManager* _sharedRenderManager;
+    NSMutableDictionary     *_cachedTextures;
+	NSMutableDictionary		*_parentTextureDictionary;
+	//NSDictionary			*textureDictionary;
+	
+}
+
+//@property (readonly, assign) NSDictionary* textureDictionary;
+
++ (ResourceManager *)sharedResourceManager;
+-(void) initResources;
+// Selector returns a Texture2D which has a ket of |aTextureName|.  If a texture cannot be
+// found with that key then a new Texture2D is created and added to the cache and a 
+// reference to this new Texture2D instance is returned.
+-(CGRect) getImageInformation:(int) imageName;
+-(Quad2f) getTextureCoordinatesForImageName:(int) name;
+-(void) storeParentTextureWithName:(int) aTextureName;
+-(void) storeScreenTextureWithName:(int)texName;
+-(void)storeFontTextureWithName:(int)texName;
+-(Quad2f) getTextureCoordinates:(id) imageObject;
+- (Texture2D*)getTextureWithName:(int)aTextureName;
+- (Texture2D*)getScreenTextureWithName:(int)texName;
+-(Quad2f) getTextureCoordsForBack:(id)imageObject withOffset: (cpVect) offset withDimensions:(cpVect) dimensions;
+- (Texture2D*)getTextureWithName:(int)aTextureName filter:(GLenum) aFilt;
+
+// Selector that releases a cached texture which has a matching key to |aTextureName|.
+- (BOOL)releaseTextureWithName:(int)aTextureName;
+
+// Selector that releases all cached textures.
+- (void)releaseAllTextures;
+
+@end

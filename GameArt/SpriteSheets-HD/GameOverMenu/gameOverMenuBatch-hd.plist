@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>feetCloud.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 483}, {647, 404}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {647, 404}}</string>
+			<key>sourceSize</key>
+			<string>{647, 404}</string>
+		</dict>
+		<key>gameOverText.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 377}, {590, 105}}</string>
+			<key>offset</key>
+			<string>{0.5, -1}</string>
+			<key>sourceColorRect</key>
+			<string>{{3, 26}, {590, 105}}</string>
+			<key>sourceSize</key>
+			<string>{595, 155}</string>
+		</dict>
+		<key>menuGameOverB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{165, 1}, {163, 103}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {163, 103}}</string>
+			<key>sourceSize</key>
+			<string>{163, 103}</string>
+		</dict>
+		<key>menuGameOverR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {163, 103}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {163, 103}}</string>
+			<key>sourceSize</key>
+			<string>{163, 103}</string>
+		</dict>
+		<key>scoresGOB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{329, 1}, {275, 172}}</string>
+			<key>offset</key>
+			<string>{-0.5, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {275, 172}}</string>
+			<key>sourceSize</key>
+			<string>{276, 172}</string>
+		</dict>
+		<key>scoresGOR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{605, 1}, {275, 172}}</string>
+			<key>offset</key>
+			<string>{-0.5, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {275, 172}}</string>
+			<key>sourceSize</key>
+			<string>{276, 172}</string>
+		</dict>
+		<key>tapContinueText.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{651, 174}, {355, 42}}</string>
+			<key>offset</key>
+			<string>{2.5, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{5, 10}, {355, 42}}</string>
+			<key>sourceSize</key>
+			<string>{360, 62}</string>
+		</dict>
+		<key>tryB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 174}, {324, 202}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {324, 202}}</string>
+			<key>sourceSize</key>
+			<string>{324, 202}</string>
+		</dict>
+		<key>tryR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{326, 174}, {324, 202}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {324, 202}}</string>
+			<key>sourceSize</key>
+			<string>{324, 202}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{1024, 1024}</string>
+	</dict>
+</dict>
+</plist>

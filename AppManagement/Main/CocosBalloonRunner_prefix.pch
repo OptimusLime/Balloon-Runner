@@ -1,0 +1,13 @@
+//
+// Prefix header for all source files of the 'CocosSteve' target in the 'CocosSteve' project
+//
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+//#import "cocos2d.h"
+#endif
+
+#ifdef __cplusplus
+//#include "Box2D.h"
+#endif	

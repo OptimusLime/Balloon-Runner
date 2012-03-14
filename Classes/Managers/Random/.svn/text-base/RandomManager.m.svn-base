@@ -1,0 +1,106 @@
+//
+//  RandomManager.m
+//  SteamArmada
+//
+//  Created by Paul Szerlip on 3/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import "RandomManager.h"
+#import "SynthesizeSingleton.h"
+
+static BOOL randomInitialized = NO;
+
+@implementation RandomManager
+
+SYNTHESIZE_SINGLETON_FOR_CLASS(RandomManager);
+
+- (void)dealloc {
+	[super dealloc];
+}
+
+
+-(void) ensureInitialized
+{
+	
+	if(!randomInitialized)
+	{
+	for(int i=0; i < _countRandomArray; i++)
+	{
+		randomFloatArray[i] = frand();
+	}
+	for(int i=0; i < _countRandomArray; i++)
+	{
+		randomIntArray[i] = rand();
+	}
+	randomFloatCount = 0;
+	randomIntCount = 0;
+	}
+	
+	
+	
+}
+
+-(CGFloat) frand
+{
+	CGFloat ret = randomFloatArray[randomFloatCount];
+	randomFloatCount = (randomFloatCount +1) % _countRandomArray;
+	return ret;
+	//return frand();
+}
+-(int) rand
+{
+	int ret = randomIntArray[randomIntCount];
+	randomIntCount = (randomIntCount +1) % _countRandomArray;
+	return ret;
+	//return rand();
+}
+
+-(CGFloat) frandInRange:(CGFloat) min max:(CGFloat) max 
+{return (max-min)*[self frand] + min;}
+
+-(cpVect) frandInArea:(cpVect) min  max:(cpVect) max
+{	return cpv([self frandInRange:min.x max:max.x],[self frandInRange:min.y max:max.y]); }
+
+-(cpVect) frandInAreaMinus:(cpVect) min max:(cpVect) max  avoidMin:(cpVect) avoidMin avoidMax:(cpVect) avoidMax 
+{
+	CGFloat x;
+	CGFloat y = [self frandInRange:min.y max:max.y];
+	//If we're inside of where we shouldn't be, then the x value needs to be restricted
+	if( y > avoidMin.y && y < avoidMax.y)
+	{
+		if([self rand] %2)
+		{
+			x = [self frandInRange:min.x max:avoidMin.x];
+		}
+		else
+		{
+			x =  [self frandInRange:avoidMax.x max:max.x];
+		}
+	}
+	//Otherwise, we're already restricting our y, our x can be anything
+	else
+	{
+		x = [self frandInRange:min.x max: max.x];
+	}
+	
+	return cpv(x,y);
+}
+-(cpVect) frandInAreaMinusImageDimensions:(cpVect) min max:(cpVect) max  avoidMin: (cpVect) avoidMin avoidMax:( cpVect) avoidMax quadCpv: (cpVect) quadCpv
+{
+	
+	return [self frandInAreaMinus:cpvadd(min, quadCpv)  max:cpvsub(max, quadCpv) avoidMin: avoidMin avoidMax: avoidMax];
+}
+
+-(cpVect) frandInAreaWithImageAndCenter:(cpVect) playerCenter screenMin: (cpVect) screenMin screenMax:(cpVect) screenMax width:( CGFloat) width  quadCpv: (cpVect) quadCpv
+{
+	cpVect min = cpvadd(cpvsub(playerCenter, cpv(width, BELOW_PLAYER*width)),quadCpv);
+	cpVect max = cpvsub(cpvadd(playerCenter, cpv(width, ABOVE_PLAYER*width)), quadCpv);
+	
+	return [self frandInAreaMinusImageDimensions:min max:max  avoidMin:screenMin avoidMax:screenMax  quadCpv:quadCpv];
+	
+}
+
+
+
+@end

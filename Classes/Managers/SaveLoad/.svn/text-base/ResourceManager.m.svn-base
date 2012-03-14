@@ -1,0 +1,420 @@
+//
+//  ResourceManager.m
+//  OGLGame
+//
+//  Created by Michael Daley on 16/05/2009.
+//  Copyright 2009 Michael Daley. All rights reserved.
+//
+
+#import "ResourceManager.h"
+#import "Common.h"
+#import "SynthesizeSingleton.h"
+#import "MultiImage.h"
+#import "PaulieEnumerations.h"
+#import "EngineEnumerations.h"
+#import "RenderManager.h"
+
+#import "Texture2D.h"
+//#import "CurrentTextureList.h"
+//static int debugCount  = 0;
+//static NSDictionary* texDict = nil;
+//#define DEBUG 0
+
+
+@implementation TextureHolder
+
+@synthesize noFlip, hFlip, vFlip, hvFlip, colorRect, parentSize,frame,size;
+
+-(Quad2f) quadForImage:(id) imageObject
+{
+	Quad2f retValue;
+	//Neither horizontal nor vertical flip, return normal
+	if(![imageObject flipVertically] && ![imageObject flipHorizontally])
+		retValue= noFlip;
+	//Flip vertically, but not horizontally
+	else if([imageObject flipVertically] && ![imageObject flipHorizontally])
+		retValue = vFlip;
+	//Flip horizontally but not vertically
+	else if([imageObject flipHorizontally] && ![imageObject flipVertically])
+		retValue = hFlip;
+	//Flip horizontally AND vertically
+	else//([imageObject flipHorizontally] && [imageObject flipVertically])
+		retValue = hvFlip;
+
+	return retValue;
+}
+-(Quad2f) normalQuad
+{
+	return noFlip;
+}
+@end
+
+//static Quad2f customQuads[100];
+//static int _quadCount = 0;
+@implementation ResourceManager
+
+//@synthesize textureDictionary;
+
+SYNTHESIZE_SINGLETON_FOR_CLASS(ResourceManager);
+
+- (void)dealloc {
+    
+    // Release the cachedTextures dictionary.
+	[_cachedTextures release];
+	
+	[super dealloc];
+}
+
+
+- (void)initResources
+{
+	// Initialize a dictionary with an initial size to allocate some memory, but it will 
+    // increase in size as necessary as it is mutable.
+	_sharedGameManager = [GameObjectManager sharedGameObjectManager];
+	_sharedRenderManager = [RenderManager sharedRenderManager];
+	_cachedTextures = [[NSMutableDictionary dictionaryWithCapacity:TOTAL_PNG_COUNT] retain];
+	_parentTextureDictionary = [[NSMutableDictionary dictionaryWithCapacity:TOTAL_PARENT_PNG_COUNT] retain];
+	
+}
+-(CGRect) getImageInformation:(int) imageName
+{
+	//debugCount++;
+//	NSLog(@"debugCall: %d", debugCount);
+//	NSLog(@"Get info for: %@",[_sharedGameManager valueFor: imageName]);
+//	NSMutableDictionary* pDict = [_parentTextureDictionary objectForKey:[NSNumber numberWithInt:  [_sharedGameManager parentIntFor:imageName] ]]; 
+//	TextureHolder* tHold ;
+//	for (NSNumber* key in pDict) {
+//		tHold = [pDict objectForKey:key];
+//		NSLog(@"EnumRe: %f,%f", [tHold colorRect].size.width, [tHold colorRect].size.height);
+//
+//	}
+//	 tHold =  ;
+//	NSLog(@"Rect: %f,%f", [tHold colorRect].size.width, [tHold colorRect].size.height);
+	return [(TextureHolder*) [ [_parentTextureDictionary objectForKey:[NSNumber numberWithInt: [_sharedGameManager parentIntFor:imageName]]] 
+							  objectForKey:[_sharedGameManager valueFor: imageName]]  colorRect];
+	
+}
+-(Quad2f) getTextureCoordinatesForImageName:(int) name
+{
+	NSMutableDictionary* pDict;
+	
+	
+	pDict = [_parentTextureDictionary objectForKey:[NSNumber numberWithInt:[_sharedGameManager parentIntFor:name]]];
+	
+	return [[pDict objectForKey:[_sharedGameManager valueFor:name]] normalQuad];
+}
+-(Quad2f) getTextureCoordinates:(id) imageObject
+{
+	NSMutableDictionary* pDict;
+	
+	
+	pDict = [_parentTextureDictionary objectForKey:[NSNumber numberWithInt:[_sharedGameManager parentIntFor:[imageObject imageName]]]];
+	
+	return [[pDict objectForKey:[_sharedGameManager valueFor:[imageObject imageName]]] quadForImage:imageObject];
+}
+//TODO: Inefficient callback every loop, could improve
+-(Quad2f) getTextureCoordsForBack:(id)imageObject withOffset:(cpVect) offset withDimensions:(cpVect) dimensions
+{
+
+	NSMutableDictionary* pDict = [_parentTextureDictionary objectForKey:[NSNumber numberWithInt:[_sharedGameManager parentIntFor:[imageObject imageName]]]];
+	TextureHolder* tHolder = [pDict objectForKey:[_sharedGameManager valueFor:[imageObject imageName]]];
+	Quad2f wholeTex, finalTex;
+	//CGSize size = [tHolder size];
+	CGRect frame = [tHolder frame];
+	
+	wholeTex = [tHolder quadForImage:imageObject];
+	CGSize parentSize = [tHolder parentSize];
+	
+	cpVect invTexSize = cpv(1.0f/parentSize.width, 1.0f/parentSize.height);
+	cpVect coordOffset = cpv(0.5f*dimensions.x*invTexSize.x, 0.5f*dimensions.y * invTexSize.y);
+	
+	//The offset can be negative, so we just add the offset fraction no matter what the center is
+	//cpVect center = cpvadd(cpv((wholeTex.bl.x + wholeTex.br.x)/2.0f, (wholeTex.bl.y + wholeTex.tl.y)/2.0f), cpv(invTexSize.x*offset.x, invTexSize.y*offset.y));
+	cpVect center = cpvadd(cpv(invTexSize.x*(2.0f*frame.origin.x + frame.size.width)/2.0f, invTexSize.y*(2.0f*frame.origin.y + frame.size.height)/2.0f), cpv(invTexSize.x*offset.x, invTexSize.y*offset.y));
+
+	finalTex.bl = cpv(fmaxf(center.x - coordOffset.x, wholeTex.bl.x), fminf(center.y + coordOffset.y, wholeTex.bl.y));
+	finalTex.tl = cpv(fmaxf(center.x - coordOffset.x, wholeTex.tl.x), fmaxf(center.y - coordOffset.y, wholeTex.tl.y));
+	finalTex.br = cpv(fminf(center.x + coordOffset.x, wholeTex.br.x), fminf(center.y + coordOffset.y, wholeTex.br.y));
+	finalTex.tr = cpv(fminf(center.x + coordOffset.x, wholeTex.tr.x), fmaxf(center.y - coordOffset.y, wholeTex.tr.y));
+	
+	return finalTex;
+}
+-(void) storeFontTextureWithName:(int)texName
+{
+	if(!_sharedGameManager)
+		[self initResources];
+	
+	
+	Texture2D *_cachedTexture;
+	if(_cachedTexture = [_cachedTextures objectForKey:[_sharedGameManager parentValueFor:texName]]) {
+        if(NO) NSLog(@"INFO - Resource Manager: A cached parent texture was found with the key '%@'.",[_sharedGameManager parentValueFor: texName]);
+        return;
+    }
+    
+	if(YES) NSLog(@"INFO - Resource Manager: A parent texture with the key '%@' could not be found so creating it.", [_sharedGameManager parentValueFor:texName]);
+	//We append .png to the end of the parentValue returned from the gamemanager call
+    _cachedTexture = [_sharedGameManager allocObject:eTexture2D withObject:[_sharedGameManager parentValueFor:texName]];
+	[_cachedTextures setObject:_cachedTexture forKey:[_sharedGameManager parentValueFor:texName]];
+	
+}
+-(void) storeScreenTextureWithName:(int)texName
+{
+	if(!_sharedGameManager)
+		[self initResources];
+	
+	
+	Texture2D *_cachedTexture;
+	NSString* picPath = [_sharedGameManager picturePathWithInt:texName];
+	NSLog(@"PicPath %@", picPath);
+	if(_cachedTexture = [_cachedTextures objectForKey:picPath]) {
+        if(NO) NSLog(@"INFO - Resource Manager: A cached parent texture was found with the key '%@'.",picPath);
+        return;
+    }
+	//if(YES) NSLog(@"INFO - Resource Manager: A parent texture with the key '%@' could not be found so creating it.", picPath);
+	 
+	
+	
+	//NSData* data = ;
+	
+	UIImage *theImage = [UIImage imageWithData:[NSData dataWithContentsOfFile:picPath]];//imageWithContentsOfFile:[_sharedGameManager picturePathWithInt:texName]];//[UIImage imageWithData:data];
+	//NSLog(@"Image Point %p", theImage);
+	_cachedTexture = [_sharedGameManager allocObject:eScreenTexture withObject:theImage];//Data logic HERE];
+	[_cachedTextures setObject:_cachedTexture forKey:[_sharedGameManager picturePathWithInt:texName]];
+	
+	
+	NSMutableDictionary* processDictionary;
+	BOOL didNotExist = NO;
+	if(!(processDictionary = [_parentTextureDictionary objectForKey:[NSNumber numberWithInt: END_TEXTURES]]))
+	{
+		processDictionary = [[NSMutableDictionary alloc] initWithCapacity:[_sharedGameManager pictureCount]];
+		didNotExist = YES;
+	}
+	CGSize sizeTex = [_cachedTexture contentSize]; 
+	CGFloat imageHeightInv = 1.0f/(CGFloat)[_cachedTexture pixelsHigh]; 
+	CGFloat imageWidthInv =  1.0f/(CGFloat)[_cachedTexture pixelsWide]; 
+	//cpVect screenRes = [_sharedRenderManager getScreenResolution];  
+	TextureHolder* tHolder;
+	Quad2f tempQuad, enterQuad;
+	tHolder = [[TextureHolder alloc] init];
+	
+	tempQuad.tl = cpvzero;
+	
+	tempQuad.tr = cpv(sizeTex.width*imageWidthInv, 
+					  0.0f);
+	
+	tempQuad.bl = cpv(0.0f,
+					  sizeTex.height*imageHeightInv);
+	
+	tempQuad.br = cpv(sizeTex.width*imageWidthInv,sizeTex.height*imageHeightInv);
+	
+	enterQuad = tempQuad;
+	[tHolder setNoFlip:enterQuad];
+	//Now flip vertical
+	enterQuad.tl = tempQuad.tr;
+	enterQuad.tr = tempQuad.tl;
+	enterQuad.br = tempQuad.bl;
+	enterQuad.bl = tempQuad.br;
+	[tHolder setVFlip:enterQuad];
+	//Now flip horizontal
+	enterQuad.tl = tempQuad.bl;
+	enterQuad.tr = tempQuad.br;
+	enterQuad.br = tempQuad.tr;
+	enterQuad.bl = tempQuad.tl;
+	[tHolder setHFlip:enterQuad];
+	//Now flip horizontal and vertical
+	enterQuad.tl = tempQuad.br;
+	enterQuad.tr = tempQuad.bl;
+	enterQuad.br = tempQuad.tl;
+	enterQuad.bl = tempQuad.tr;
+	[tHolder setHvFlip:enterQuad];
+	
+	//Now we save tHolder into our processDictinary, so I can access it for the frame (e.g. I call blue2.png, and I will get this textureHolder)
+	[processDictionary setObject:tHolder forKey:[NSNumber numberWithInt:texName]];
+	
+	if (didNotExist) {
+		[_parentTextureDictionary setObject:processDictionary forKey: [NSNumber numberWithInt:END_TEXTURES]];
+
+	}
+}
+-(void) storeParentTextureWithName:(int) aTextureName
+{
+	if(!_sharedGameManager)
+		[self initResources];
+	
+	
+	 Texture2D *_cachedTexture;
+	if(_cachedTexture = [_cachedTextures objectForKey:[_sharedGameManager parentValueFor:aTextureName]]) {
+        if(NO) NSLog(@"INFO - Resource Manager: A cached parent texture was found with the key '%@'.",[_sharedGameManager parentValueFor: aTextureName]);
+        return;
+    }
+    
+	if(YES) NSLog(@"INFO - Resource Manager: A parent texture with the key '%@' could not be found so creating it.", [_sharedGameManager parentValueFor:aTextureName]);
+	//We append .png to the end of the parentValue returned from the gamemanager call
+    _cachedTexture = [_sharedGameManager allocObject:eTexture2D withObject:[_sharedGameManager parentValueFor:aTextureName]];
+	 [_cachedTextures setObject:_cachedTexture forKey:[_sharedGameManager parentValueFor:aTextureName]];
+	
+	NSString *path = [[NSBundle mainBundle] pathForResource:[_sharedGameManager parentValueFor:aTextureName] ofType:@"plist"];
+	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+	//Framedict is actually a dictionary of the textures contained in our texture atlas
+	NSDictionary *framesDict = [dict objectForKey:@"frames"];
+	NSDictionary *metaData = [dict objectForKey:@"metadata"];
+	CGSize textureSize = CGSizeFromString([metaData objectForKey:@"size"]);
+	//We're going to process these entries, and turn them into entries into another dictionary, which we store in our parentTextureDictionary
+	NSMutableDictionary* processDictionary = [[NSMutableDictionary alloc] initWithCapacity:[framesDict count]];
+	TextureHolder* tHolder;
+	Quad2f tempQuad, enterQuad;
+	CGFloat texWidthRatio, texHeightRatio;
+	texWidthRatio = 1.0f/textureSize.width;
+	texHeightRatio = 1.0f/textureSize.height;
+	
+	for(NSString *frameDictKey in framesDict) {
+		//NSLog(@"ProcessedImage: %@", frameDictKey);
+		NSDictionary *frameDict = [framesDict objectForKey:frameDictKey];
+		tHolder = [[TextureHolder alloc] init];
+		[tHolder setParentSize: textureSize];
+		//This is info on a single texture
+		CGRect frame = CGRectFromString([frameDict objectForKey:@"frame"]);
+		[tHolder setFrame:frame];
+		
+		//CGPoint offset = CGPointFromString([frameDict objectForKey:@"sourceSize"]);
+		[tHolder setSize: CGSizeFromString([frameDict objectForKey:@"sourceSize"])];
+		CGRect sourceColorRect = CGRectFromString([frameDict objectForKey:@"sourceColorRect"]);
+		
+		tempQuad.tl = cpv((frame.origin.x + sourceColorRect.origin.x)*texWidthRatio, (frame.origin.y + sourceColorRect.origin.y)*texHeightRatio);
+		
+		tempQuad.tr = cpv((frame.origin.x + sourceColorRect.origin.x + sourceColorRect.size.width)*texWidthRatio, 
+						  (frame.origin.y + sourceColorRect.origin.y)*texHeightRatio);
+		
+		tempQuad.bl = cpv((frame.origin.x +  sourceColorRect.origin.x)*texWidthRatio,
+						  (frame.origin.y + sourceColorRect.origin.y + sourceColorRect.size.height)*texHeightRatio);
+		
+		tempQuad.br = cpv((frame.origin.x + sourceColorRect.origin.x + sourceColorRect.size.width)*texWidthRatio,
+						  (frame.origin.y + sourceColorRect.origin.y + sourceColorRect.size.height)*texHeightRatio);
+		
+		//NSLog(@"sColRectRegSize: %f,%f", sourceColorRect.size.width, sourceColorRect.size.height);
+		[tHolder setColorRect:sourceColorRect];
+		enterQuad = tempQuad;
+		[tHolder setNoFlip:enterQuad];
+		//Now flip vertical
+		enterQuad.tl = tempQuad.tr;
+		enterQuad.tr = tempQuad.tl;
+		enterQuad.br = tempQuad.bl;
+		enterQuad.bl = tempQuad.br;
+		[tHolder setVFlip:enterQuad];
+		//Now flip horizontal
+		enterQuad.tl = tempQuad.bl;
+		enterQuad.tr = tempQuad.br;
+		enterQuad.br = tempQuad.tr;
+		enterQuad.bl = tempQuad.tl;
+		[tHolder setHFlip:enterQuad];
+		//Now flip horizontal and vertical
+		enterQuad.tl = tempQuad.br;
+		enterQuad.tr = tempQuad.bl;
+		enterQuad.br = tempQuad.tl;
+		enterQuad.bl = tempQuad.tr;
+		[tHolder setHvFlip:enterQuad];
+		
+		//Now we save tHolder into our processDictinary, so I can access it for the frame (e.g. I call blue2.png, and I will get this textureHolder)
+		[processDictionary setObject:tHolder forKey:frameDictKey];
+		tHolder = nil;
+		
+//		int leftTrim = sourceColorRect.origin.x;
+//		int topTrim = sourceColorRect.origin.y;
+//		int rightTrim = sourceColorRect.size.width + leftTrim;		
+//		int bottomTrim = sourceColorRect.size.height + topTrim;
+				
+	}
+	
+	//Now we store this dictionary of textures values into our parentTextureDict
+	[_parentTextureDictionary setObject:processDictionary forKey: [NSNumber numberWithInt:[_sharedGameManager parentIntFor: aTextureName]]];
+	
+}
+-(Texture2D*)getScreenTextureWithName:(int)texName
+{
+		return [_cachedTextures objectForKey:[_sharedGameManager picturePathWithInt:texName]];
+}
+- (Texture2D*)getTextureWithName:(int)aTextureName {
+   // for (NSString* name in _cachedTextures) {
+//		NSLog(@"Names: %@", name);
+//	}
+	//NSString* string = [NSString stringWithFormat:@"%@",[_sharedGameManager parentValueFor:aTextureName]];
+//	string = string;
+	//NSLog(@"Getting: %@",[_sharedGameManager parentValueFor:aTextureName]);
+//	NSLog(@"Search name: %@",[_sharedGameManager parentValueFor:aTextureName]);
+	return [_cachedTextures objectForKey:[_sharedGameManager parentValueFor:aTextureName]];
+	
+   // // Try to get a texture from cachedTextures with the supplied key.
+//    Texture2D *_cachedTexture;
+//    
+//    // If we can find a texture with the supplied key then return it.
+//    if(_cachedTexture = [_cachedTextures objectForKey:[_sharedGameManager parentValueFor:aTextureName]]) {
+//        if(DEBUG) NSLog(@"INFO - Resource Manager: A cached texture was found with the key '%@'.",[_sharedGameManager valueFor: aTextureName]);
+//        return _cachedTexture;
+//    }
+//    
+//    // As no texture was found we create a new one, cache it and return it.
+//	//NSLog(@"Cleared RM::GTWN0");
+//    if(DEBUG) NSLog(@"INFO - Resource Manager: A texture with the key '%@' could not be found so creating it.", [_sharedGameManager valueFor:aTextureName]);
+//    _cachedTexture = [_sharedGameManager allocObject:eTexture2DPVR withObject:[_sharedGameManager parentValueFor:aTextureName]];
+//	
+//	//[[Texture2D alloc] initWithImage:[UIImage imageNamed:[_sharedGameManager valueFor:aTextureName]] filter:GL_NEAREST];
+//	//NSLog(@" RM::GTWN1");
+//    [_cachedTextures setObject:_cachedTexture forKey:[_sharedGameManager parentValueFor:aTextureName]];
+//	
+//	//NSLog(@"Cleared RM::GTWN2");
+//    // Return the texture which is autoreleased as the caller is responsible for it
+//    return [_cachedTexture autorelease];
+}
+
+- (Texture2D*)getTextureWithName:(int)aTextureName filter:(GLenum) aFilt {
+	if(!_sharedGameManager)
+		[self initResources];
+	
+    // Try to get a texture from cachedTextures with the supplied key.
+    Texture2D *_cachedTexture;
+    
+    // If we can find a texture with the supplied key then return it.
+    if(_cachedTexture = [_cachedTextures objectForKey:[_sharedGameManager valueFor:aTextureName]]) {
+        if(DEBUG) NSLog(@"INFO - Resource Manager: A cached texture was found with the key '%@'.", [_sharedGameManager valueFor:aTextureName]);
+        return _cachedTexture;
+    }
+    
+    // As no texture was found we create a new one, cache it and return it.
+	//NSLog(@"Cleared RM::GTWN0");
+	//eTexture2D
+    if(DEBUG) NSLog(@"INFO - Resource Manager: A texture with the key '%@' could not be found so creating it.", [_sharedGameManager valueFor:aTextureName]);
+     _cachedTexture = [_sharedGameManager allocObject:eTexture2D withObject:[_sharedGameManager valueFor:aTextureName]];
+	//_cachedTexture = [[Texture2D alloc] initWithImage:[UIImage imageNamed:[_sharedGameManager valueFor:aTextureName]] filter:aFilt];
+	//NSLog(@" RM::GTWN1");
+    [_cachedTextures setObject:_cachedTexture forKey:[_sharedGameManager valueFor:aTextureName]];
+	
+	
+	//NSLog(@"Cleared RM::GTWN2");
+    // Return the texture which is autoreleased as the caller is responsible for it
+    return [_cachedTexture autorelease];
+}
+
+- (BOOL)releaseTextureWithName:(int)aTextureName {
+
+    // Try to get a texture from cachedTextures with the supplied key.
+    Texture2D *cachedTexture = [_cachedTextures objectForKey:[_sharedGameManager valueFor:aTextureName]];
+
+    // If a texture was found we can remove it from the cachedTextures and return YES.
+    if(cachedTexture) {
+        if(DEBUG) NSLog(@"INFO - Resource Manager: A cached texture with the key '%@' was released.", [_sharedGameManager valueFor:aTextureName]);
+        [_cachedTextures removeObjectForKey:[_sharedGameManager valueFor:aTextureName]];
+        return YES;
+    }
+    
+    // No texture was found with the supplied key so log that and return NO;
+    if(DEBUG) NSLog(@"INFO - Resource Manager: A texture with the key '%@' could not be found to release.", [_sharedGameManager valueFor:aTextureName]);
+    return NO;
+}
+
+- (void)releaseAllTextures {
+    if(DEBUG) NSLog(@"INFO - Resource Manager: Releasing all cached textures.");
+    [_cachedTextures removeAllObjects];
+}
+
+
+@end

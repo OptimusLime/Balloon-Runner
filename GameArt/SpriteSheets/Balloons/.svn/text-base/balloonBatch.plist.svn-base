@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>basketv5.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{954, 544}, {127, 224}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {127, 224}}</string>
+			<key>sourceSize</key>
+			<string>{127, 224}</string>
+		</dict>
+		<key>blue2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{481, 544}, {472, 472}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {472, 472}}</string>
+			<key>sourceSize</key>
+			<string>{472, 472}</string>
+		</dict>
+		<key>green2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 544}, {479, 472}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {479, 472}}</string>
+			<key>sourceSize</key>
+			<string>{479, 472}</string>
+		</dict>
+		<key>orange2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1066, 1}, {507, 507}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {507, 507}}</string>
+			<key>sourceSize</key>
+			<string>{507, 507}</string>
+		</dict>
+		<key>pink2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {549, 542}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {549, 542}}</string>
+			<key>sourceSize</key>
+			<string>{549, 542}</string>
+		</dict>
+		<key>red2.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{551, 1}, {514, 514}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {514, 514}}</string>
+			<key>sourceSize</key>
+			<string>{514, 514}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+	</dict>
+</dict>
+</plist>

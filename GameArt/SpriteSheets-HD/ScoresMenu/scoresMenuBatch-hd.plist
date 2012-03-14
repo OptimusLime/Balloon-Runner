@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>achieveB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{962, 459}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>achieveR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{962, 688}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>backScoresB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 642}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>backScoresR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 230}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>friendsB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1730, 1}, {247, 110}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {247, 110}}</string>
+			<key>sourceSize</key>
+			<string>{247, 110}</string>
+		</dict>
+		<key>friendsR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 909}, {247, 110}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {247, 110}}</string>
+			<key>sourceSize</key>
+			<string>{247, 110}</string>
+		</dict>
+		<key>leaderBoardsR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 687}, {246, 110}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {246, 110}}</string>
+			<key>sourceSize</key>
+			<string>{246, 110}</string>
+		</dict>
+		<key>leaderboardsB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 798}, {246, 110}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {246, 110}}</string>
+			<key>sourceSize</key>
+			<string>{246, 110}</string>
+		</dict>
+		<key>resetScoresB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{962, 1}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>resetScoresR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 459}, {383, 227}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 227}}</string>
+			<key>sourceSize</key>
+			<string>{383, 227}</string>
+		</dict>
+		<key>scoresButtonB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1346, 1}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>scoresButtonR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{962, 230}, {383, 228}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {383, 228}}</string>
+			<key>sourceSize</key>
+			<string>{383, 228}</string>
+		</dict>
+		<key>scoresCloud.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {960, 640}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {960, 640}}</string>
+			<key>sourceSize</key>
+			<string>{960, 640}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+	</dict>
+</dict>
+</plist>

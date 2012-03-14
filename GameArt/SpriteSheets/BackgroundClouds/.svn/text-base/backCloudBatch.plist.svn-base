@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>cloud1.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{770, 1}, {630, 358}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {630, 358}}</string>
+			<key>sourceSize</key>
+			<string>{630, 358}</string>
+		</dict>
+		<key>cloud3.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{802, 360}, {354, 210}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {354, 210}}</string>
+			<key>sourceSize</key>
+			<string>{354, 210}</string>
+		</dict>
+		<key>cloud4.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1157, 360}, {339, 202}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {339, 202}}</string>
+			<key>sourceSize</key>
+			<string>{339, 202}</string>
+		</dict>
+		<key>cloud5.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 360}, {421, 138}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {421, 138}}</string>
+			<key>sourceSize</key>
+			<string>{421, 138}</string>
+		</dict>
+		<key>cloud6.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1401, 1}, {514, 162}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {514, 162}}</string>
+			<key>sourceSize</key>
+			<string>{514, 162}</string>
+		</dict>
+		<key>cloud7.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{423, 360}, {378, 124}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {378, 124}}</string>
+			<key>sourceSize</key>
+			<string>{378, 124}</string>
+		</dict>
+		<key>croppedBackground.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {768, 320}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {768, 320}}</string>
+			<key>sourceSize</key>
+			<string>{768, 320}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+	</dict>
+</dict>
+</plist>

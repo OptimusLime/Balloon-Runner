@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>bird.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {559, 295}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {559, 295}}</string>
+			<key>sourceSize</key>
+			<string>{559, 295}</string>
+		</dict>
+		<key>hotair.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1536, 1}, {317, 525}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {317, 525}}</string>
+			<key>sourceSize</key>
+			<string>{317, 525}</string>
+		</dict>
+		<key>kite.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{561, 1}, {552, 493}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {552, 493}}</string>
+			<key>sourceSize</key>
+			<string>{552, 493}</string>
+		</dict>
+		<key>owl.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1114, 1}, {421, 496}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {421, 496}}</string>
+			<key>sourceSize</key>
+			<string>{421, 496}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{2048, 1024}</string>
+	</dict>
+</dict>
+</plist>

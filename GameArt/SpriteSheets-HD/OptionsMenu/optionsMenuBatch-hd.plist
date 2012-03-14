@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>backOptionsB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{329, 1}, {258, 146}}</string>
+			<key>offset</key>
+			<string>{0, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 5}, {258, 146}}</string>
+			<key>sourceSize</key>
+			<string>{258, 151}</string>
+		</dict>
+		<key>backOptionsR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{588, 1}, {258, 146}}</string>
+			<key>offset</key>
+			<string>{0, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 5}, {258, 146}}</string>
+			<key>sourceSize</key>
+			<string>{258, 151}</string>
+		</dict>
+		<key>offB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{236, 1}, {92, 48}}</string>
+			<key>offset</key>
+			<string>{0.5, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 16}, {92, 48}}</string>
+			<key>sourceSize</key>
+			<string>{93, 75}</string>
+		</dict>
+		<key>offR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{143, 1}, {92, 48}}</string>
+			<key>offset</key>
+			<string>{0.5, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 16}, {92, 48}}</string>
+			<key>sourceSize</key>
+			<string>{93, 75}</string>
+		</dict>
+		<key>onB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{72, 1}, {70, 47}}</string>
+			<key>offset</key>
+			<string>{0, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 17}, {70, 47}}</string>
+			<key>sourceSize</key>
+			<string>{72, 76}</string>
+		</dict>
+		<key>onR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {70, 47}}</string>
+			<key>offset</key>
+			<string>{0, -2.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 17}, {70, 47}}</string>
+			<key>sourceSize</key>
+			<string>{72, 76}</string>
+		</dict>
+		<key>optionsBackground.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1021}, {960, 640}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {960, 640}}</string>
+			<key>sourceSize</key>
+			<string>{960, 640}</string>
+		</dict>
+		<key>optionsCloud.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 438}, {960, 582}}</string>
+			<key>offset</key>
+			<string>{0.5, 7}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 22}, {960, 582}}</string>
+			<key>sourceSize</key>
+			<string>{961, 640}</string>
+		</dict>
+		<key>tutB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 148}, {447, 289}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {447, 289}}</string>
+			<key>sourceSize</key>
+			<string>{447, 289}</string>
+		</dict>
+		<key>tutR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{449, 148}, {447, 289}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {447, 289}}</string>
+			<key>sourceSize</key>
+			<string>{447, 289}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{1024, 2048}</string>
+	</dict>
+</dict>
+</plist>

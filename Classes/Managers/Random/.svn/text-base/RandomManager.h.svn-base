@@ -1,0 +1,34 @@
+//
+//  RandomManager.h
+//  SteamArmada
+//
+//  Created by Paul Szerlip on 3/30/10.
+//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "GameObject.h"
+
+#define _countRandomArray 1000
+
+@interface RandomManager : NSObject {
+	//1000 random numbers is arbirtarily chosen
+	CGFloat randomFloatArray[_countRandomArray];
+	
+	
+	int randomIntArray[_countRandomArray];
+	int randomFloatCount;
+	int randomIntCount;
+}
++ (RandomManager *)sharedRandomManager;
+-(void) ensureInitialized;
+-(CGFloat) frand;
+-(int) rand;
+
+//Higher level random function based on lower level things
+-(CGFloat) frandInRange:(CGFloat) min max:(CGFloat) max;
+-(cpVect) frandInArea:(cpVect) min  max:(cpVect) max;
+-(cpVect) frandInAreaMinus:(cpVect) min max:(cpVect) max  avoidMin:(cpVect) avoidMin avoidMax:(cpVect) avoidMax;
+-(cpVect) frandInAreaMinusImageDimensions:(cpVect) min max:(cpVect) max  avoidMin: (cpVect) avoidMin avoidMax:( cpVect) avoidMax quadCpv: (cpVect) quadCpv;
+-(cpVect) frandInAreaWithImageAndCenter:(cpVect) playerCenter screenMin: (cpVect) screenMin screenMax:(cpVect) screenMax width:( CGFloat) width  quadCpv: (cpVect) quadCpv;
+@end

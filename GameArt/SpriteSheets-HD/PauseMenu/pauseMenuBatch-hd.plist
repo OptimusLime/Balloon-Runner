@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>menuB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{499, 1}, {91, 66}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>sourceColorRect</key>
+			<string>{{9, 21}, {72, 24}}</string>
+			<key>sourceSize</key>
+			<string>{91, 66}</string>
+		</dict>
+		<key>menuR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{407, 1}, {91, 66}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>sourceColorRect</key>
+			<string>{{9, 21}, {72, 24}}</string>
+			<key>sourceSize</key>
+			<string>{91, 66}</string>
+		</dict>
+		<key>offPauseB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{330, 1}, {76, 41}}</string>
+			<key>offset</key>
+			<string>{-0.5, -0.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 11}, {76, 41}}</string>
+			<key>sourceSize</key>
+			<string>{77, 62}</string>
+		</dict>
+		<key>offPauseR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{253, 1}, {76, 41}}</string>
+			<key>offset</key>
+			<string>{-0.5, -0.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 11}, {76, 41}}</string>
+			<key>sourceSize</key>
+			<string>{77, 62}</string>
+		</dict>
+		<key>onPauseB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{60, 1}, {58, 40}}</string>
+			<key>offset</key>
+			<string>{0, -1.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 12}, {58, 40}}</string>
+			<key>sourceSize</key>
+			<string>{60, 61}</string>
+		</dict>
+		<key>onPauseR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 1}, {58, 40}}</string>
+			<key>offset</key>
+			<string>{0, -1.5}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 12}, {58, 40}}</string>
+			<key>sourceSize</key>
+			<string>{60, 61}</string>
+		</dict>
+		<key>pauseButton.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{119, 1}, {66, 88}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>sourceColorRect</key>
+			<string>{{16, 21}, {31, 47}}</string>
+			<key>sourceSize</key>
+			<string>{66, 88}</string>
+		</dict>
+		<key>pauseCloud.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{1, 90}, {647, 404}}</string>
+			<key>offset</key>
+			<string>{0, -0}</string>
+			<key>sourceColorRect</key>
+			<string>{{0, 0}, {647, 404}}</string>
+			<key>sourceSize</key>
+			<string>{647, 404}</string>
+		</dict>
+		<key>playButton.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{186, 1}, {66, 88}}</string>
+			<key>offset</key>
+			<string>{0, 0}</string>
+			<key>sourceColorRect</key>
+			<string>{{2, 21}, {43, 44}}</string>
+			<key>sourceSize</key>
+			<string>{66, 88}</string>
+		</dict>
+		<key>returnB.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{722, 1}, {130, 33}}</string>
+			<key>offset</key>
+			<string>{0.5, -1}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 9}, {130, 33}}</string>
+			<key>sourceSize</key>
+			<string>{131, 49}</string>
+		</dict>
+		<key>returnR.png</key>
+		<dict>
+			<key>frame</key>
+			<string>{{591, 1}, {130, 33}}</string>
+			<key>offset</key>
+			<string>{0.5, -1}</string>
+			<key>sourceColorRect</key>
+			<string>{{1, 9}, {130, 33}}</string>
+			<key>sourceSize</key>
+			<string>{131, 49}</string>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>format</key>
+		<integer>1</integer>
+		<key>size</key>
+		<string>{1024, 512}</string>
+	</dict>
+</dict>
+</plist>
